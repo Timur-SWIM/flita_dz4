@@ -22,15 +22,12 @@ enum ErrorStatus_t {
 };
 
 int addEdge(graph *g, int A, int B) {
-
     if (A > g->countNode || B > g->countNode){
-
         return NODE_N_EXIST;
     }
     if (A > B)
         swap(A, B);
     if (g->nodes[A][B] == 1){
-
         return EDGE_N_EXIST;
     }
     g->nodes[A][B] = 1;
@@ -94,7 +91,12 @@ int main(int argc, char* argv[]) {
     printf("Matrix\n");
     printMatrix(g);
 
-
+    FILE *outputf = fopen("graph1.dot", "w");
+    if (outputf == NULL){
+        puts("ERROR: Unable to open file");
+    }
+    writeDOT(outputf, g);
+    fclose(outputf);
 
     int A ;
     int B ;
@@ -118,7 +120,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    FILE *outputf = fopen("graph.dot", "w");
+    outputf = fopen("graph2.dot", "w");
     if (outputf == NULL){
         puts("ERROR: Unable to open file");
     }
